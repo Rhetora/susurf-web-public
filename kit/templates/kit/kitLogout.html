@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block style %}
+tr.hide { display:none; }
+{% endblock %}
+
+{% block js %}
+<script>
+hideRows = function(dropdown, show, table, hideItems) {
+    var drop = document.getElementById(dropdown);
+    drop.innerText = show;
+    var table = document.getElementById(table);
+    for (var i = 0, row; row = table.rows[i]; i++) {
+       row.classList.remove("hide");
+       for (var j = 0, col; col = row.cells[j]; j++) {
+          if (hideItems.includes(col.innerText)) {
+            row.classList.add('hide');
+            console.log("hidetrigged");
+          }
+       }  
+}
+    };
+</script>
+{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid" style="padding-top: 3em; padding-bottom: 3em;">
+  <div class="jumbotron jumbotron-fluid bg-dark text-white">
+  <div class="row">
+      <div class="col">
+        <h1 class="display-5" style="text-align: center;">Surfboards</h1>
+      </div>
+      <div class="col">
+        <div class="dropdown" style="text-align: center;">
+          <button class="btn btn-secondary dropdown-toggle" style="width: 10em;" type="button" id="surfboardSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Ability
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="hideRows('surfboardSort', 'Beginner', 'surfboardTable', ['Intermediate', 'Advanced']);">Beginner</a>
+            <a class="dropdown-item" onclick="hideRows('surfboardSort', 'Intermediate', 'surfboardTable', ['Beginner', 'Advanced']);">Intermediate</a>
+            <a class="dropdown-item" onclick="hideRows('surfboardSort', 'Advanced', 'surfboardTable', ['Beginner', 'Intermediate']);">Advanced</a>
+            <a class="dropdown-item" onclick="hideRows('surfboardSort', 'All', 'surfboardTable', ['none']);">All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table" id="surfboardTable" class="d-flex">
+      <thead>
+        <tr>
+          <th scope="col" style="width:20%">ID Number</th>
+          <th scope="col" style="width:15%">Brand</th>
+          <th scope="col" style="width:15%">Model</th>
+          <th scope="col" style="width:15%">Size</th>
+          <th scope="col" style="width:15%">Ability</th>
+          <th scope="col" style="width:20%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for board in surfboards %}
+        {% if board.watertight == True %}
+          {% if board.location == "Container" %}
+          <tr class="table-success">
+          {% else %}
+          <tr class="table-danger">
+          {% endif %}
+        {% else %}
+        <tr class="table-danger"> 
+        {% endif %}
+          <td>{{ board.IDnumber}}</td>
+          <td>{{ board.brand }}</td>
+          <td>{{ board.model }}</td>
+          <td>{{ board.size }}</td>
+          <td>{{ board.ability }}</td>
+          {% if board.watertight == False %}
+          <td>Damaged</td>
+          {% elif board.location == "Container" %}
+          <td><a role="button" href="{% url 'kit:takeBoard' ID=board.IDnumber %}" class="btn btn-danger">Borrow</button></td>
+          {% elif board.location == user.email %}
+          <td><a role="button" href="{% url 'kit:returnBoard' ID=board.IDnumber %}" class="btn btn-success">Return</button></td>
+          {% else %}
+            {% if user.is_staff == True %}
+            <td>{{ board.location }}</td>
+            {% else %}
+            <td>In Use</td>
+            {% endif %}
+          {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="jumbotron jumbotron-fluid bg-dark text-white">
+      <div class="row">
+      <div class="col">
+        <h1 class="display-5" style="text-align: center;">Wetsuits</h1>
+      </div>
+      <div class="col">
+        <div class="dropdown" style="text-align: center;">
+          <button class="btn btn-secondary dropdown-toggle" style="width: 10em;" type="button" id="wetsuitSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sort Gender
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="hideRows('wetsuitSort', 'Womens', 'wetsuitTable', ['Mens Small', 'Mens Medium', 'Mens Large', 'Mens Extra Large']);">Womens</a>
+            <a class="dropdown-item" onclick="hideRows('wetsuitSort', 'Mens', 'wetsuitTable', ['Womens 6', 'Womens 8', 'Womens 10', 'Womens 12', 'Womens 14', 'Womens 16']);">Mens</a>
+            <a class="dropdown-item" onclick="hideRows('wetsuitSort', 'All', 'wetsuitTable', ['none']);">All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table" id="wetsuitTable" class="d-flex">
+      <thead>
+        <tr>
+          <th scope="col" style="width:20%">ID Number</th>
+          <th scope="col" style="width:15%">Brand</th>
+          <th scope="col" style="width:15%">Model</th>
+          <th scope="col" style="width:15%">Size</th>
+          <th scope="col" style="width:15%">Thickness</th>
+          <th scope="col" style="width:20%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for suit in wetsuits %}
+        {% if suit.usable == True %}
+          {% if suit.location == "Container" %}
+          <tr class="table-success">
+          {% else %}
+          <tr class="table-danger">
+          {% endif %}
+        {% else %}
+        <tr class="table-danger"> 
+        {% endif %}
+          <td>{{ suit.IDnumber}}</td>
+          <td>{{ suit.brand }}</td>
+          <td>{{ suit.model }}</td>
+          <td>{{ suit.size }}</td>
+          <td>{{ suit.thickness }}</td>
+          {% if suit.usable == False %}
+          <td>Damaged</td>
+          {% elif suit.location == "Container" %}
+          <td><a role="button" href="{% url 'kit:takeSuit' ID=suit.IDnumber %}" class="btn btn-danger">Borrow</button></td>
+          {% elif suit.location == user.email %}
+          <td><a role="button" href="{% url 'kit:returnSuit' ID=suit.IDnumber %}" class="btn btn-success">Return</button></td>
+          {% else %}
+            {% if user.is_staff == True %}
+            <td>{{ suit.location }}</td>
+            {% else %}
+            <td>In Use</td>
+            {% endif %}
+          {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="jumbotron jumbotron-fluid bg-dark text-white">
+    <div class="container">
+      <h1 class="display-5">Leashes</h1>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table" id="adminTable">
+      <thead>
+        <tr>
+          <th scope="col" style="width:80%">ID Number</th>
+          <th scope="col" style="width:20%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for miscItem in misc %}
+          {% if miscItem.item_type == "Leash" %}
+          {% if miscItem.location == "Container" %}
+          <tr class="table-success">
+          {% else %}
+          <tr class="table-danger">
+          {% endif %}
+          <td>{{ miscItem.IDnumber}}</td>
+          {% if miscItem.location == "Container" %}
+          <td><a role="button" href="{% url 'kit:takeMisc' ID=miscItem.IDnumber %}" class="btn btn-danger">Borrow</button></td>
+          {% elif miscItem.location == user.email %}
+          <td><a role="button" href="{% url 'kit:returnMisc' ID=miscItem.IDnumber %}" class="btn btn-success">Return</button></td>
+          {% else %}
+            {% if user.is_staff == True %}
+            <td>{{ miscItem.location }}</td>
+            {% else %}
+            <td>In Use</td>
+            {% endif %}
+          {% endif %}
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="jumbotron jumbotron-fluid bg-dark text-white">
+    <div class="container">
+      <h1 class="display-5">Other</h1>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table" id="adminTable">
+      <thead>
+        <tr>
+          <th scope="col" style="width:20%">ID Number</th>
+          <th scope="col" style="width:60%">Item</th>
+          <th scope="col" style="width:20%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for miscItem in misc %}
+          {% if miscItem.item_type != "Leash" %}
+          {% if miscItem.location == "Container" %}
+          <tr class="table-success">
+          {% else %}
+          <tr class="table-danger">
+          {% endif %}
+          <td>{{ miscItem.IDnumber}}</td>
+          <td>{{ miscItem.item_type}}</td>
+          {% if miscItem.location == "Container" %}
+          <td><a role="button" href="{% url 'kit:takeMisc' ID=miscItem.IDnumber %}" class="btn btn-danger">Borrow</button></td>
+          {% elif miscItem.location == user.email %}
+          <td><a role="button" href="{% url 'kit:returnMisc' ID=miscItem.IDnumber %}" class="btn btn-success">Return</button></td>
+          {% else %}
+            {% if user.is_staff == True %}
+            <td>{{ miscItem.location }}</td>
+            {% else %}
+            <td>In Use</td>
+            {% endif %}
+          {% endif %}
+          </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

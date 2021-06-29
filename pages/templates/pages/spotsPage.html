@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+
+#pic {
+    width:100%;
+    height:auto;
+    
+    }
+
+{% endblock %}
+
+
+{% block main %}
+<div class="container-fluid">
+    {% for spot in spots %}
+     <div class="card-group">
+        <div class="card my-auto" style="text-align: center; border: none;">
+            <div class="card-body">
+              <h3 class="card-title" style="padding-bottom: 1em; padding-top: 1em;">{{ spot.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ spot.location }}</h6>
+              <h7 class="card-subtitle mb-2 text-muted">{{ spot.distance }} Miles from Southampton</h7>
+              <p class="card-text" style="padding-top: 2em; padding-bottom: 1em;">{{ spot.short_description }}</p>
+              <a role="button" class="btn btn-info" href="{% url 'pages:spots_detail' spot=spot.name %}">More</a>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="{{ spot.list_image.url }}" id="pic">
+        </div>
+    </div>    
+    {% endfor %}
+</div>
+
+
+{% endblock %}

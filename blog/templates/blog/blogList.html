@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="container-fluid" style="min-height: 80vh">
+    <div class="container" style="padding-top: 2em; padding-bottom: 8em;">
+        <h2 style="text-align: center; padding-bottom: 2em;"><strong>Susurf Blog</strong></h2>
+        {% for blog in blogs %}
+        <div class="row-content" style="padding-top: 2em;">
+            <div class="card bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <div class="d-flex">
+                          <div>
+                            <a class="text-white" href="{% url 'blog:blogDetail' blogID=blog.id %}">{{blog.title}}</a>
+                          </div>
+                          <div class="ml-auto">
+                            {{blog.date}}
+                          </div>
+                        </div>
+                    </h5>
+                    <h6 class="card-subtitle mb-2">{{blog.author}}</h6>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

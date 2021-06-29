@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block main %}
+<div style="padding-top: 100px; padding-bottom: 100px;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+              <h2 class="text-dark">Sign up</h2>
+              <form method="post">
+                {% csrf_token %}
+                <h4 class="text-muted">Personal Info.</h4>
+                {% for field in form %}
+                  {% if field.name == "medical" %}
+                  <hr>
+                  <h4 class="text-muted">Medical/Dietary Info.</h4>
+                  {% endif %}
+                  {% if field.name == "ability" %}
+                  <hr>
+                  <h4 class="text-muted">Surfing Info.</h4>
+                  {% endif %}
+                  {% if field.name == "swim100m" %}
+                  <hr>
+                  <h4 class="text-muted">Agreements</h4>
+                  {% endif %}
+                  <p class="text-dark">
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                    {% if field.help_text %}
+                      <small style="color: grey">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                      <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                  </p>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Sign up</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

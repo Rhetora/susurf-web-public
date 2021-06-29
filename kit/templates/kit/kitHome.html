@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div class="container-fluid" style="padding-top: 3em; padding-bottom: 6em;">
+    <div class="row content">
+        <div class="container">
+            <h2><strong>What kit do SuSurf Have?</strong></h2>
+            <p>SuSurf has a large amount of kit that can be borrowed free of charge by its members! We have a large collection of boards, wetsuits, and other misc. gear for member use.</p>
+            <ul>
+                <li>Large Foamie Boards</li>
+                <li>Hard Minimals (Bics)</li>
+                <li>Foamie Shortboards</li>
+                <li>Fibreglass Shortboards</li>
+                <li>Mens and Womens Winter Wetsuits</li>
+                <li>Leashes</li>
+                <li>Soft Roof Racks</li>
+            </ul>  
+            <p>All kit is available to borrow to paid members, however if there is a club trip, this will take priority on kit required.</p>
+        </div>
+    </div>
+    <div class="row content" style="padding-top: 3em; text-align: center;">
+      <div class="card-deck mx-auto w-50">
+          <div class="card text-white bg-dark">
+            <div class="card-body">
+                <h5 class="card-title">Borrowing</h5>
+                <p class="card-text">How do I borrow club kit?</p>
+                <a href="{% url 'kit:kitBorrowing' %}" class="btn btn-primary">Guide</a>
+            </div>
+          </div>
+          <div class="card text-white bg-dark">
+            <div class="card-body">
+                <h5 class="card-title">Kit Care</h5>
+                <p class="card-text">How do I look after club kit?</p>
+                <a href="{% url 'kit:kitCare' %}" class="btn btn-primary">Guide</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row" style="padding-top: 2em; text-align: center;">
+      <div class="col-md">
+        <div class="card w-50 mx-auto text-white" style="background-color: #3547E6;">
+          <div class="card-body">
+            <h5 class="card-title">Kit Borrowing System</h5>
+            <a href="{% url 'kit:kitLogout' %}" class="btn btn-danger">View Kit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

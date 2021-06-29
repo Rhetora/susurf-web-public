@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block js %}
+
+<script>
+function exportTableToExcel(tableID, filename = ''){
+    var downloadLink;
+    var dataType = 'application/vnd.ms-excel';
+    var tableSelect = document.getElementById(tableID);
+    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+    
+    // Specify file name
+    filename = filename?filename+'.xls':'excel_data.xls';
+    
+    // Create download link element
+    downloadLink = document.createElement("a");
+    
+    document.body.appendChild(downloadLink);
+    
+    if(navigator.msSaveOrOpenBlob){
+        var blob = new Blob(['\ufeff', tableHTML], {
+            type: dataType
+        });
+        navigator.msSaveOrOpenBlob( blob, filename);
+    }else{
+        // Create a link to the file
+        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+    
+        // Setting the file name
+        downloadLink.download = filename;
+        
+        //triggering the function
+        downloadLink.click();
+    }
+}
+</script>
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid" style="min-height: 80vh">
+  <div class="container" style="padding-top: 2em; padding-bottom: 2em;">
+    <h1>{{ event.name }} Admin</h1>
+    <button id="exporttable" class="btn btn-success" onclick="exportTableToExcel('adminTable', filename = '{{event.name}}')">Export</button>
+    {% if event.event_type == 'Weekend Trip' %}
+    <div class="table-responsive">
+      <table class="table table-striped table-hover" id="adminTable">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">Dietary</th>
+            <th scope="col">Ability</th>
+            <th scope="col">Borrowing Board</th>
+            <th scope="col">Bringing Board</th>
+            <th scope="col">Wetsuit</th>
+            <th scope="col">Can Drive</th>
+            <th scope="col">Car Seats</th>
+            <th scope="col">Roof Rack</th>
+            <th scope="col">Can drive Minibus</th>
+            {% if event.camping == True %}
+            <th scope="col">My tent sleeps</th>
+            {% endif %}
+            <th scope="col">{{ event.endQuestion }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in signups %}
+            <tr>
+            <td>{{ entry.timestamp|date:'m-d H:i:s' }}</td>
+            <td>{{ entry.user.first_name }} {{ entry.user.last_name }}</td>
+            <td>{{ entry.user.dietary }}</td>
+            <td>{{ entry.user.ability }}</td>
+            <td>{{ entry.borrowBoard }}</td>
+            <td>{{ entry.bringBoard }}</td>
+            <td>{{ entry.wetsuit }}</td>
+            <td>{{ entry.driveCar }}</td>
+            <td>{{ entry.carSeats }}</td>
+            <td>{{ entry.roofRacks }}</td>
+            <td>{{ entry.driveMinibus }}</td>
+            {% if event.camping == True %}
+            <td>{{ entry.tent }}</td>
+            {% endif %}
+            <td>{{ entry.endQuestionAnswer }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+
+    {% if event.event_type == 'Abroad Trip' %}
+    <div class="table-responsive">
+      <table class="table" id="adminTable">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">Dietary</th>
+            <th scope="col">Ability</th>
+            <th scope="col">Renting</th>
+            <th scope="col">Lessons</th>
+            <th scope="col">{{ event.endQuestion }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in signups %}
+            <tr>
+            <td>{{ entry.timestamp|date:'m-d H:i:s' }}</td>
+            <td>{{ entry.user.first_name }} {{ entry.user.last_name }}</td>
+            <td>{{ entry.user.dietary }}</td>
+            <td>{{ entry.user.ability }}</td>
+            <td>{{ entry.rental }}</td>
+            <td>{{ entry.lessons }}</td>
+            <td>{{ entry.endQuestionAnswer }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+
+    {% if event.event_type == 'Beginner Session' %}
+    <div class="table-responsive">
+      <table class="table" id="adminTable">
+        <thead>
+          <tr>
+            <th scope="col">Time</th>
+            <th scope="col">Name</th>
+            <th scope="col">Ability</th>
+            <th scope="col">Borrowing Board</th>
+            <th scope="col">Wetsuit</th>
+            <th scope="col">Can Drive</th>
+            <th scope="col">Car Seats</th>
+            <th scope="col">Roof Rack</th>
+            <th scope="col">{{ event.endQuestion }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in signups %}
+            <tr>
+            <td>{{ entry.timestamp|date:'m-d H:i:s' }}</td>
+            <td>{{ entry.user.first_name }} {{ entry.user.last_name }}</td>
+            <td>{{ entry.user.ability }}</td>
+            <td>{{ entry.borrowBoard }}</td>
+            <td>{{ entry.wetsuit }}</td>
+            <td>{{ entry.driveCar }}</td>
+            <td>{{ entry.carSeats }}</td>
+            <td>{{ entry.roofRacks }}</td>
+            <td>{{ entry.endQuestionAnswer }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}

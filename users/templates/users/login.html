@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<div style="padding-top: 4em;">
+    <div class="container">
+        <form method="POST">
+        {% csrf_token %}
+        <div class="row" style="padding-top: 7em;">
+            <div class="col-md" style="text-align: center;">
+                <h1>Login</h1>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 6em;">
+            <div class="col" style="text-align: right;">
+            Email:
+            </div>
+            <div class="col" style="text-align: center;">
+                {{form.username}}
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 1em;">
+            <div class="col" style="text-align: right;">
+            Password:
+            </div>
+            <div class="col" style="text-align: center;">
+                {{form.password}}
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <div class="row" style="padding-top: 5em;">
+            <div class="col" style="text-align: center;">
+                <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>
+            </div>
+        </div>
+        </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="row" style="padding-top: 3em; padding-bottom: 10em">
+            <div class="col-sm" style="text-align: right;">
+            </div>
+            <div class="col-md" style="text-align: center;">
+                Don't have an account? <a href="{% url 'users:signup' %}"><strong>Signup here</strong></a>!
+                <br>
+                <br>
+                <a href="{% url 'password_reset' %}"><strong>Forgotton your password?</strong></a>
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

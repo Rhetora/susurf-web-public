@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+
+#pic {
+    width:100%;
+    height:auto;
+    border: 1px solid #000;
+    }
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid" style="min-height: 80vh">
+  <div class="container" style="padding-top: 2em; padding-bottom: 2em;">
+    <div class="row">
+      <div class="col">
+        <div class="d-flex">
+            <div>
+              <h2>{{blog.title}}</h2>
+              <h5 class="text-muted">by {{blog.author}}</h5>
+            </div>
+            <div class="ml-auto">
+              <h2>{{blog.date}}</h2>
+            </div>
+       </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col">
+        <p>{{ blog.text1|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    {% if blog.pic1.url != null %}
+    <div class="row">
+      <div class="col">
+        <img class="card-img-top" src="{{ blog.pic1.url }}" id="pic">
+      </div>
+    </div>
+    {% endif %}
+
+    {% if blog.text2 != null %}
+    <div class="row">
+      <div class="col">
+        <p>{{ blog.text2|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if blog.pic2.url != null %}
+    <div class="row">
+      <div class="col">
+        <img class="card-img-top" src="{{ blog.pic2.url }}" id="pic">
+      </div>
+    </div>
+    {% endif %}
+
+    {% if blog.text3 != null %}
+    <div class="row">
+      <div class="col">
+        <p>{{ blog.text3|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if blog.pic3.url != null %}
+    <div class="row">
+      <div class="col">
+        <img class="card-img-top" src="{{ blog.pic3.url }}" id="pic">
+      </div>
+    </div>
+    {% endif %}
+
+    {% if blog.text4 != null %}
+    <div class="row">
+      <div class="col">
+        <p>{{ blog.text4|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if blog.pic4.url != null %}
+    <div class="row">
+      <div class="col">
+        <img class="card-img-top" src="{{ blog.pic4.url }}" id="pic">
+      </div>
+    </div>
+    {% endif %}
+
+    {% if blog.text5 != null %}
+    <div class="row">
+      <div class="col">
+        <p>{{ blog.text5|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    {% endif %}
+    {% if blog.pic5.url != null %}
+    <div class="row">
+      <div class="col">
+        <img class="card-img-top" src="{{ blog.pic5.url }}" id="pic">
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

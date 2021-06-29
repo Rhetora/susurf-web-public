@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+#logo {
+    width: 5em; 
+    display: block;
+    margin: 0 auto;
+    padding-top: 1em;
+    }
+
+#pic {
+    width:100%;
+    height:auto;
+    
+    }
+
+{% endblock %}
+
+
+{% block main %}
+<div class="container-fluid">
+    <div class="card-group">
+        <div class="card my-auto" style="text-align: center; border: none;">
+            <img class="card-img-top" src="../static/pages/images/logo2.png" alt="SUSURF" id="logo">
+            <div class="card-body">
+              <h3 class="card-title">About Us</h5>
+              <p class="card-text">{{about|linebreaks}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="{{ pic1.url }}" id="pic">
+        </div>
+    </div>
+    <div class="card-group">
+        <div class="card">
+            <img class="card-img-top" src="{{ pic2.url }}" id="pic">
+        </div>
+        <div class="card my-auto" style="text-align: center; border: none;">
+            <img class="card-img-top" src="../static/pages/images/logo.png" alt="SUSURF" id="logo">
+            <div class="card-body">
+              <h3 class="card-title">What we do</h5>
+              <p class="card-text">{{what|linebreaks}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-group">
+        <div class="card my-auto" style="text-align: center; border: none;">
+            <img class="card-img-top" src="../static/pages/images/logo2.png" alt="SUSURF" id="logo">
+            <div class="card-body">
+              <h3 class="card-title">Learn more</h5>
+              <p class="card-text">{{learn|linebreaks}}</p>
+            </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top" src="{{ pic3.url }}" id="pic">
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

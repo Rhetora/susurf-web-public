@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+
+.jumbotron {
+  background-image: url("../img/jumbotron_bg.jpg");
+  background-size: cover;
+  background-position: center;
+  text-color: red;
+}
+
+{% endblock %}
+
+
+{% block main %}
+<div class="jumbotron" style="background-image: url({{spot.list_image.url}}); background-size: 100%;">
+   <h1 class="text-light">{{spot.name}}</h1>
+   <h6 class="text-light">{{ spot.location }}</h6>
+   <h7 class="text-light">{{ spot.distance }} Miles from Southampton</h7>
+   <p class="lead" style="padding-top: 1em;">
+      <a role="button" class="btn btn-dark" href="{{ spot.mswLink }}">Forecast</a>
+   </p>
+</div>
+<div class="container" style="padding-bottom: 30px;
+min-height: 80vh">
+    <div class="row">
+        <div class="col-sm">
+            <p>{{ spot.long_description|linebreaks }}</p>
+            <h4>Recommended for</h4>
+            <p>{{ spot.recommended|linebreaks }}</p>
+            <h4>How to get there</h4>
+            <p>{{ spot.howToGetThere|linebreaks }}</p>
+            <h4>Parking</h4>
+            <p>{{ spot.parking|linebreaks }}</p>
+        </div>
+        <div class="col-sm">
+            <div id="googleMap" style="width:100%;height:400px;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function myMap() {
+var mapProp= {
+  center:new google.maps.LatLng({{ spot.latitude }},{{ spot.longitude }}),
+  zoom:15,
+};
+
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+var marker = new google.maps.Marker({position: mapProp.center});
+
+marker.setMap(map);
+}
+
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTX5h1RP_CzBFez0e1_yHXQ07Co1lQARk&callback=myMap"></script>
+
+
+{% endblock %}

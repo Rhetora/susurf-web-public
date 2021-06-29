@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="container-fluid" style="min-height: 80vh; max-width: 100vw;">
+  <div class="container" style="padding-top: 2em; padding-bottom: 2em;">
+    <div class="row">
+      <div class="col">
+        <h1>{{ event.name }}</h1>
+      </div>
+    </div>
+      <hr>
+    <div class="row">
+      <div class="col" style="width: 100%;">
+        <p>{{ event.longDescription|linebreaks|urlize }}</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row" style="text-align: center; padding-top: 1em; padding-bottom: 1em;">
+      <div class="col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path d="M12 13.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"></path><path fill-rule="evenodd" d="M19.071 3.429C15.166-.476 8.834-.476 4.93 3.429c-3.905 3.905-3.905 10.237 0 14.142l.028.028 5.375 5.375a2.359 2.359 0 003.336 0l5.403-5.403c3.905-3.905 3.905-10.237 0-14.142zM5.99 4.489A8.5 8.5 0 0118.01 16.51l-5.403 5.404a.859.859 0 01-1.214 0l-5.378-5.378-.002-.002-.023-.024a8.5 8.5 0 010-12.02z"></path></svg> 
+        <h3>
+          {{ event.location }}
+        </h3>
+      </div>
+      <div class="col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill-rule="evenodd" d="M6.75 0a.75.75 0 01.75.75V3h9V.75a.75.75 0 011.5 0V3h2.75c.966 0 1.75.784 1.75 1.75v16a1.75 1.75 0 01-1.75 1.75H3.25a1.75 1.75 0 01-1.75-1.75v-16C1.5 3.784 2.284 3 3.25 3H6V.75A.75.75 0 016.75 0zm-3.5 4.5a.25.25 0 00-.25.25V8h18V4.75a.25.25 0 00-.25-.25H3.25zM21 9.5H3v11.25c0 .138.112.25.25.25h17.5a.25.25 0 00.25-.25V9.5z"></path></svg> 
+        <h3>
+          {{ event.startDateTime.date }}
+          {% if event.startDateTime.date != event.endDateTime.date %}
+           - {{ event.endDateTime.date }}
+          {% endif %}
+        </h3> 
+      </div>
+      <div class="col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg> 
+        <h3>
+          {{ event.startDateTime.time }}
+          {% if event.startDateTime.date == event.endDateTime.date %} 
+           - {{ event.endDateTime.time }}
+          {% endif %} 
+        </h3>
+      </div>
+    </div>
+    <hr>
+    <div class="row" style="text-align: center; padding-top: 1em; padding-bottom: 1em;">
+      {% if event.signupRequired == True %}
+      <div class="col-md">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill-rule="evenodd" d="M5.873 3.26A.75.75 0 016.44 3h11.31a.75.75 0 01.576.27l5 6a.75.75 0 01-.028.992l-10.75 11.5a.75.75 0 01-1.096 0l-10.75-11.5a.75.75 0 01-.02-1.003l5.19-6zm.91 1.24L2.258 9.73 12 20.153l9.75-10.43L17.399 4.5H6.783z"></path></svg>
+        <h3>
+          {% if event.cost != None %}
+            £{{ event.cost }}
+          {% endif %}
+          {% if event.cost == None %}
+            It's Freeeee!
+          {% endif %}
+        </h3>
+      </div>
+      {% endif %}
+      <div class="col-md">
+        {% if event.spaces != None %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill-rule="evenodd" d="M3.5 8a5.5 5.5 0 118.596 4.547 9.005 9.005 0 015.9 8.18.75.75 0 01-1.5.045 7.5 7.5 0 00-14.993 0 .75.75 0 01-1.499-.044 9.005 9.005 0 015.9-8.181A5.494 5.494 0 013.5 8zM9 4a4 4 0 100 8 4 4 0 000-8z"></path><path d="M17.29 8c-.148 0-.292.01-.434.03a.75.75 0 11-.212-1.484 4.53 4.53 0 013.38 8.097 6.69 6.69 0 013.956 6.107.75.75 0 01-1.5 0 5.193 5.193 0 00-3.696-4.972l-.534-.16v-1.676l.41-.209A3.03 3.03 0 0017.29 8z"></path></svg> 
+          <h3>
+            {{ event.spaces }} Spaces
+          </h3>
+        {% endif %}
+      </div>
+      <div class="col-md">
+        {% if event.signupPublish != None %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill-rule="evenodd" d="M5.962 2.513a.75.75 0 01-.475.949l-.816.272a.25.25 0 00-.171.237V21.25c0 .138.112.25.25.25h14.5a.25.25 0 00.25-.25V3.97a.25.25 0 00-.17-.236l-.817-.272a.75.75 0 01.474-1.424l.816.273A1.75 1.75 0 0121 3.97v17.28A1.75 1.75 0 0119.25 23H4.75A1.75 1.75 0 013 21.25V3.97a1.75 1.75 0 011.197-1.66l.816-.272a.75.75 0 01.949.475z"></path><path fill-rule="evenodd" d="M7 1.75C7 .784 7.784 0 8.75 0h6.5C16.216 0 17 .784 17 1.75v1.5A1.75 1.75 0 0115.25 5h-6.5A1.75 1.75 0 017 3.25v-1.5zm1.75-.25a.25.25 0 00-.25.25v1.5c0 .138.112.25.25.25h6.5a.25.25 0 00.25-.25v-1.5a.25.25 0 00-.25-.25h-6.5z"></path></svg>
+          <h3>
+            Signup {{ event.signupPublish|date:"M" }}.  {{ event.signupPublish.day }}{{ event.signupPublish|date:"S" }}  {{ event.signupPublish.time }}
+          </h3>
+        {% endif %}
+      </div>
+    </div>
+    {% if event.signupRequired == True %}
+      {% if signup_active == True %}
+        <div class="row" style="text-align: center;">
+          <div class="col">
+            <a role="button" class="btn btn-dark" href="{% url 'events:signup' eventID=event.id %}">Sign Up</a>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+    {% if request.user.is_staff == True %}
+      {% if event.signupRequired == True %}
+      <div class="row" style="text-align: center; padding-top: 2em;">
+        <div class="col">
+            <a role="button" class="btn btn-danger" href="{% url 'events:eventAdmin' eventID=event.id %}">View Signups</a>
+        </div>
+      </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

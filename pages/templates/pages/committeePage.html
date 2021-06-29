@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block style %}
+
+#thumb {width: 10em; 
+    border: 1px solid black;
+    }
+
+#profiles-row {
+    padding-top: 50px;
+    }
+
+{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="container" style="text-align: center; padding-bottom: 2em;">
+          <div class="row header" id="profiles-row">
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ presPic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>President</h3>
+                    <h5>{{presName}}</h5>
+                    <p>{{presBio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ vpPic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Vice-President</h3>
+                    <h5>{{vpName}}</h5>
+                    <p>{{vpBio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ treasPic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Treasurer</h3>
+                    <h5>{{treasName}}</h5>
+                    <p>{{treasBio|linebreaks}}</p>
+                </div>
+            </div>
+          </div>
+          <div class="row header" id="profiles-row">
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ trip1Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Trip Sec</h3>
+                    <h5>{{trip1Name}}</h5>
+                    <p>{{trip1Bio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ trip2Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Trip Sec</h3>
+                    <h5>{{trip2Name}}</h5>
+                    <p>{{trip2Bio|linebreaks}}</p>
+                </div>
+            </div>
+          </div>
+          <div class="row header" id="profiles-row">
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ social1Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Social Sec</h3>
+                    <h5>{{social1Name}}</h5>
+                    <p>{{social1Bio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ social2Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Social Sec</h3>
+                    <h5>{{social2Name}}</h5>
+                    <p>{{social2Bio|linebreaks}}</p>
+                </div>
+            </div>
+          </div>
+          <div class="row header" id="profiles-row">
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ beginner1Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Beginner Sec</h3>
+                    <h5>{{beginner1Name}}</h5>
+                    <p>{{beginner1Bio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ beginner2Pic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Beginner Sec</h3>
+                    <h5>{{beginner2Name}}</h5>
+                    <p>{{beginner2Bio|linebreaks}}</p>
+                </div>
+            </div>
+          </div>
+          <div class="row header" id="profiles-row">
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ kitPic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Kit Sec</h3>
+                    <h5>{{kitName}}</h5>
+                    <p>{{kitBio|linebreaks}}</p>
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="mx-3">
+                    <p class="post-thumb">
+                        <a>
+                            <img class="profile rounded-circle" src="{{ seniorPic.url }}" id="thumb">
+                        </a>
+                    </p>
+                    <h3>Senior Sec</h3>
+                    <h5>{{seniorName}}</h5>
+                    <p>{{seniorBio|linebreaks}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>  
+</div>
+
+{% endblock %}
